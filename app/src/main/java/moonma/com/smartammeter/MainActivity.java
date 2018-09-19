@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
 
     void ShowWeb()
     {
-        long timeDelayMS = 3000;
+        long timeDelayMS = 3000;//ms
         handlerLoad = new Handler();
         Runnable r = new Runnable() {
 
