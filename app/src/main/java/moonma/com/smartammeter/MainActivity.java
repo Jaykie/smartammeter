@@ -16,6 +16,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     //static final String MAIN_URL_AMMETER=  "http://www.baidu.com";
     private WebView webView;
     private TextView textTitle;
+    private ImageView imageViewLogo;
     private ProgressBar progressBar;
     private AlertDialog alertDialog;
     Handler handlerLoad;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);//隐藏状态栏
         //getSupportActionBar().hide();//隐藏标题栏
         setContentView(R.layout.activity_main);
+        imageViewLogo = (ImageView) findViewById(R.id.imageView);
 
         initDialog();
         //progressBar= (ProgressBar)findViewById(R.id.progressbar);//进度条
@@ -48,14 +51,15 @@ public class MainActivity extends AppCompatActivity {
         //webView.setBackgroundColor(0);
 
         WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
+       webSettings.setJavaScriptEnabled(true);
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);//设置网页缩放至手机大小
-        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);//不使用缓存，只从网络获取数据.
+      //  webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);//不使用缓存，只从网络获取数据.
+      //  webView.setLayerType(View.LAYER_TYPE_HARDWARE,null);//开启硬件加速
 
         // 在WebView中而不在默认浏览器中显示页面
         webView.setWebViewClient(new MyWebViewClient());
-        webView.setWebChromeClient(new WebChromeClient());//支持特殊javascript
+       webView.setWebChromeClient(new WebChromeClient());//支持特殊javascript
 
 //        webView.loadUrl("file:///android_asset/test.html");//加载asset文件夹下html
        // webView.loadUrl("https://blog.csdn.net/lowprofile_coding/article/details/77928614");//加载url
@@ -174,6 +178,9 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 //do something
                 webView.setVisibility(View.VISIBLE);
+
+                //logo显示占用系统资源 需要隐藏
+                imageViewLogo.setVisibility(View.GONE);
             }
         };
         handlerLoad.postDelayed(r, timeDelayMS);//延时毫秒
@@ -211,6 +218,8 @@ public class MainActivity extends AppCompatActivity {
             //        .show();
             ShowText();
         }
+
+
         }
 
 
